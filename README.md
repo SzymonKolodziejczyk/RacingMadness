@@ -18,11 +18,14 @@ Things that are done:
 -Main game mode: Race against AI
 
 Plan to do before release:
--Better UI (in progress)
--Make some game footage to showcase in the main menu (in progress)
--Better VFX (in progress)
--Finish my own assets (in progress)
--Plan and make it so I have at least 8 maps (in progress)
+-Powerups like increased speed, shooting things and maybe more (in progress)
+-More interactable road hazards (in progress)
+-More cars, about 20 total would be perfect
+-Better UI
+-Make some game footage to showcase in the main menu
+-Better VFX
+-Finish my own assets
+-Plan and make it so I have at least 8 maps
 -Championship mode (worry in the future)
 -Demolition mode (worry in the future)
 -Overall polish, so it's perfect (mega worry in the future)
