@@ -10,6 +10,7 @@ public class DamageManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("AI"))
         {
+            
             //other.gameObject.GetComponent<HealthManager>().health -= damage;
             other.gameObject.GetComponent<HealthAndRespawnCar>().health -= damage;
         }

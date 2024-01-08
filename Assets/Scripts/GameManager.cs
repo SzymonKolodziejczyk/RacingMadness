@@ -137,7 +137,6 @@ public class GameManager : MonoBehaviour
         ChangeGameState(GameStates.raceOver);
     }
 
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

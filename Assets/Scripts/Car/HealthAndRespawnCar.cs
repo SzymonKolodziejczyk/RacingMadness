@@ -6,14 +6,16 @@ public class HealthAndRespawnCar : MonoBehaviour
 {
     public float health;
     public float maxHealth;
-    public Vector2 SafeGroundLocation {get; private set;} = Vector2.zero;
+    public Vector2 safeGroundLocation {get; private set;} = Vector2.zero;
     [SerializeField] private LayerMask whatIsCheckPoint;
     [SerializeField] Animator transitionAnim;
 
     private void Start()
     {
         maxHealth = health;
-        SafeGroundLocation = transform.position;
+        safeGroundLocation = transform.position;
+        //shield = transform.Find("Shield").gameObject;
+        //DeactivateShield();
     }
 
     void Update()
@@ -29,7 +31,7 @@ public class HealthAndRespawnCar : MonoBehaviour
     {
         if ((whatIsCheckPoint.value & (1 << collision.gameObject.layer)) > 0)
         {
-            SafeGroundLocation = new Vector2(collision.bounds.center.x, collision.bounds.center.y);
+            safeGroundLocation = new Vector2(collision.bounds.center.x, collision.bounds.center.y);
         }
     }
 
@@ -37,7 +39,7 @@ public class HealthAndRespawnCar : MonoBehaviour
     {
         Debug.Log("Lol");
         health = maxHealth;
-        transform.position = SafeGroundLocation;
+        transform.position = safeGroundLocation;
         StartCoroutine(RespawnAnimation());
         //Destroy(gameObject);
     }
