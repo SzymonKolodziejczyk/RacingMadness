@@ -19,7 +19,6 @@ Things that are done:
 
 Plan to do before release:
 -Powerups like increased speed, shooting things and maybe more (in progress)
--More interactable road hazards (in progress)
 -More cars, about 20 total would be perfect
 -Better UI
 -Make some game footage to showcase in the main menu
