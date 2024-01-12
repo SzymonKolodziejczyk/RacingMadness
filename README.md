@@ -37,6 +37,7 @@ Post-release plan:
 -More things as I work on this project!
 
 Few screenshots:
+
 ![RM1](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/bb8a0c24-ce51-47cb-b45c-84ac8a40df61)
 ![RM2](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/d354a628-b30a-4b4e-9019-ac2e1277183f)
 ![RM3](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/c48fde40-ca47-4a8a-a5c6-fa8093bb4dbf)
