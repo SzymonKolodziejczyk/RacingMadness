@@ -38,7 +38,7 @@ Post-release plan:
 
 Few screenshots:
 ![RM1](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/bb8a0c24-ce51-47cb-b45c-84ac8a40df61)
-![RM2](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/9b87d411-a3d7-4eb3-a57c-c26c87561b71)
+![RM2](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/d354a628-b30a-4b4e-9019-ac2e1277183f)
 ![RM3](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/c48fde40-ca47-4a8a-a5c6-fa8093bb4dbf)
 ![RM4](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/62139fb9-cfc9-4228-ba0b-7b36e4641c47)
 ![RM5](https://github.com/SzymonKolodziejczyk/RacingMadness/assets/54006844/4fe74a30-c86f-415d-8ff4-011a21140eb8)
