@@ -14,6 +14,7 @@ public class CarSFXHandler : MonoBehaviour
     public AudioSource carHitAudioSource;
     public AudioSource carJumpAudioSource;
     public AudioSource carJumpLandingAudioSource;
+    public AudioSource carExplosion;
 
     //Local variables
     float desiredEnginePitch = 0.5f;
@@ -107,5 +108,8 @@ public class CarSFXHandler : MonoBehaviour
             carHitAudioSource.Play();
     }
 
-
+    public void PlayExplosionSfx()
+    {
+        carExplosion.Play();
+    }
 }

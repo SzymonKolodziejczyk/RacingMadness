@@ -67,6 +67,7 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: b8fde602dc07a4f4db13c0da99bcd94d
   m_Children:
+  - {fileID: -6690013269125234375}
   - {fileID: -8828315218534837484}
   - {fileID: -4597265859185804895}
   - {fileID: -3954820678407379982}
@@ -77,6 +78,25 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -5153700483989198926}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &-6690013269125234375
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CarExplosion
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 581b9b3ce344af24aab790cd42b1015e
+  m_Children: []
+  m_Volume: 26aa9cd0e2b5aa54d811b153d2f5b73e
+  m_Pitch: 84bbf6c38b6a9584fb30861ae04fb999
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4641657903753604873}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -105,6 +125,20 @@ AudioMixerEffectController:
   m_EffectID: d89ebda44f8bbfe41ad570484138c6b8
   m_EffectName: Attenuation
   m_MixLevel: 713d9aec3d0c71c44a13139f7ad3b162
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &-4641657903753604873
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 5505ebd949e44c6499c00e1643b0092c
+  m_EffectName: Attenuation
+  m_MixLevel: bb79be6ee2347b241800597d4008dd86
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
@@ -189,6 +223,7 @@ AudioMixerController:
     - 618ede1b4533e0044ac343aeff09effe
     - 0c35dba0b57343b4b94297d93a6f338a
     - 571c4091106e1b94cb866d94ed935c52
+    - 581b9b3ce344af24aab790cd42b1015e
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -236,6 +271,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 95b7c81795410114084af072eca8461c
   m_FloatValues:
+    26aa9cd0e2b5aa54d811b153d2f5b73e: -0.0021650568
     61ae8e925c369f34aa54eb2334b9410d: -0.16685188
     be6da9b364c376a41a0e5ca5be3b0582: 0.6
     f230bf54363a0a640873a3e56b594967: -20.610773

@@ -12,7 +12,7 @@ public class DamageManager : MonoBehaviour
         {
             
             //other.gameObject.GetComponent<HealthManager>().health -= damage;
-            other.gameObject.GetComponent<HealthAndRespawnCar>().health -= damage;
+            other.gameObject.GetComponent<HealthSystem>().health -= damage;
         }
     }
 }

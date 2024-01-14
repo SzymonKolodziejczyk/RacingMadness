@@ -108,7 +108,7 @@ public class CarLapCounter : MonoBehaviour
                         isRaceCompleted = true;
 
                     if (!isRaceCompleted && lapCounterUIHandler != null)
-                        lapCounterUIHandler.SetLapText($"LAP {lapsCompleted + 1}/{lapsToComplete}");
+                        lapCounterUIHandler.SetLapText($"Lap {lapsCompleted + 1}/{lapsToComplete}");
                 }
 
 

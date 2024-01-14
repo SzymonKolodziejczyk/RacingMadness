@@ -30,7 +30,7 @@ public class CountDownUIHandler : MonoBehaviour
                 countDownText.text = counter.ToString();
             else
             {
-                countDownText.text = "GO";
+                countDownText.text = "Go";
 
                 GameManager.instance.OnRaceStart();
 
