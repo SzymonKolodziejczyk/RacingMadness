@@ -5,6 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
+    public GameObject pauseMenu;
+
+    public void ResumeGame()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        PauseMenu.isPaused = false;
+
+        AudioSource[] audios = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource a in audios)
+        {
+            a.Play();
+        }
+    }
+
     public void OnRaceAgain()
     {
         Debug.Log("Let's Race Again!");
