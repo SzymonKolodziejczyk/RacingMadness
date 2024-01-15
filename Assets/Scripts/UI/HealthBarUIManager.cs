@@ -7,6 +7,7 @@ public class HealthBarUIManager : MonoBehaviour
 {
     GameObject player;
     [SerializeField] private float lerpSpeed;
+    [SerializeField] private float healthBarAmount;
     [SerializeField] private Image healthBar;
     [SerializeField] private Gradient colorGradient;
     [SerializeField] private Text healthCounter;
@@ -18,7 +19,8 @@ public class HealthBarUIManager : MonoBehaviour
         lerpSpeed = 3f * Time.deltaTime;
         float TargetHealth = player.GetComponent<HealthSystem>().health / player.GetComponent<HealthSystem>().maxHealth;
         if (player != null) {
-                healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, TargetHealth, lerpSpeed);
+                healthBarAmount = Mathf.Lerp(healthBar.fillAmount, TargetHealth, lerpSpeed);
+                healthBar.fillAmount = Mathf.Clamp(healthBarAmount, 0, 1);
                 healthCounter.text = TargetHealth * 100 + "%";
                 healthBar.color = colorGradient.Evaluate(TargetHealth);
         }

@@ -8,11 +8,14 @@ public class DamageManager : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("AI"))
+        if (other.gameObject.GetComponent<HealthSystem>().health > 0)
         {
-            
             //other.gameObject.GetComponent<HealthManager>().health -= damage;
             other.gameObject.GetComponent<HealthSystem>().health -= damage;
+        }
+        else
+        {
+
         }
     }
 }

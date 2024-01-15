@@ -35,7 +35,7 @@ public class CarLapCounter : MonoBehaviour
         if (CompareTag("Player"))
         {
             lapCounterUIHandler = FindObjectOfType<LapCounterUIHandler>();
-            lapCounterUIHandler.SetLapText($"LAP {lapsCompleted + 1}/{lapsToComplete}");
+            lapCounterUIHandler.SetLapText($"Lap {lapsCompleted + 1}/{lapsToComplete}");
         }
     }
 
