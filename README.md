@@ -80,7 +80,7 @@ Here are some screenshots showcasing the menus and gameplay (all is still WIP):
 
 I'm always open to feedback, suggestions, or just a friendly chat about game development. Feel free to reach out:
 
-- **Email:** [szymonnkolodziejczyk@gmail.com]
-- **LinkedIn:** [(https://www.linkedin.com/in/szymon-ko%C5%82odziejczyk-89bb95190/)]
+- **Email:** `szymonnkolodziejczyk@gmail.com`
+- **[Connect on LinkedIn](https://www.linkedin.com/in/szymon-ko%C5%82odziejczyk-89bb95190/)** - Visit my LinkedIn profile.
 
 Thank you for checking out my 2D Arcade Racing Game project! Stay tuned for more updates. 🚀
