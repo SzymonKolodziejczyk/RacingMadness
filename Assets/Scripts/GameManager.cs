@@ -4,24 +4,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
-public enum GameStates { countDown, running, raceOver };
+public enum GameModes { FreeRacing, DeathMatch }
+public enum GameStates { countDown, running, raceOver, Deathmatch }
 
 public class GameManager : MonoBehaviour
 {
     //Static instance of GameManager so other scripts can access it
     public static GameManager instance = null;
 
-    //States
-    GameStates gameState = GameStates.countDown;
+    public GameModes selectedGameMode;
+    private const string GameModeKey = "SelectedGameMode";
+    public static GameModes chosenGameMode;
+    public GameStates gameState = GameStates.countDown;
 
-    //Time
+    // Racing-specific variables
     float raceStartedTime = 0;
     float raceCompletedTime = 0;
-
-    //Driver information
     List<DriverInfo> driverInfoList = new List<DriverInfo>();
 
-    //Events
+    // Deathmatch-specific variables
+    int defeatedAICount = 0;
+
     public event Action<GameManager> OnGameStateChanged;
 
     private void Awake()
@@ -33,14 +36,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        //selectedGameMode = chosenGameMode; // Set the game mode based on the stored value
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        //Supply dummy driver information for testing purposes
+        // Supply dummy driver information for testing purposes
         driverInfoList.Add(new DriverInfo(1, "P1", 0, false));
     }
 
@@ -48,9 +50,15 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameStates.countDown;
 
-        Debug.Log("Level started");
-    }
+        if(PlayerPrefs.HasKey(GameModeKey))
+        {
+            int savedValue = PlayerPrefs.GetInt(GameModeKey);
+            selectedGameMode = (GameModes)savedValue;
+        }
 
+        Debug.Log("Level started");
+        Debug.Log("The game mode is "+ selectedGameMode.ToString());
+    }
 
     public GameStates GetGameState()
     {
@@ -62,9 +70,70 @@ public class GameManager : MonoBehaviour
         if (gameState != newGameState)
         {
             gameState = newGameState;
-
-            //Invoke game state change event
             OnGameStateChanged?.Invoke(this);
+        }
+    }
+
+    public void OnModeSelected(GameModes selectedMode)
+    {
+        selectedGameMode = selectedMode;
+        PlayerPrefs.SetInt(GameModeKey, (int)selectedGameMode);
+    }
+
+    // Racing-specific methods
+    public void StartRace()
+    {
+        CarAIHandler aIHandler = FindObjectOfType<CarAIHandler>();
+
+        if (selectedGameMode != GameModes.FreeRacing)
+        {
+            Debug.LogError("Cannot start race in non-racing mode");
+            return;
+        }
+
+        raceStartedTime = Time.time;
+        ChangeGameState(GameStates.running);
+    }
+
+    public void CompleteRace()
+    {
+        if (selectedGameMode != GameModes.FreeRacing)
+        {
+            Debug.LogError("Cannot complete race in non-racing mode");
+            return;
+        }
+
+        raceCompletedTime = Time.time;
+        ChangeGameState(GameStates.raceOver);
+    }
+
+    // Deathmatch-specific methods
+    public void StartDeathmatch()
+    {
+        if (selectedGameMode != GameModes.DeathMatch)
+        {
+            Debug.LogError("Cannot start deathmatch in non-deathmatch mode");
+            return;
+        }
+
+        defeatedAICount = 0;
+        ChangeGameState(GameStates.running);
+    }
+
+    public void DefeatAI()
+    {
+        if (selectedGameMode != GameModes.DeathMatch)
+        {
+            Debug.LogError("Cannot defeat AI in non-deathmatch mode");
+            return;
+        }
+
+        defeatedAICount++;
+
+        // Check if all AI opponents are defeated
+        if (defeatedAICount == driverInfoList.Count - 1)
+        {
+            ChangeGameState(GameStates.raceOver);
         }
     }
 
@@ -82,7 +151,6 @@ public class GameManager : MonoBehaviour
     {
         driverInfoList.Clear();
     }
-
 
     public void AddDriverToList(int playerNumber, string name, int carUniqueID, bool isAI)
     {

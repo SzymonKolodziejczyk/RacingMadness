@@ -192,7 +192,6 @@ public class TopDownCarController : MonoBehaviour
         return carSurfaceHandler.GetCurrentSurface();
     }
 
-
     public void Jump(float jumpHeightScale, float jumpPushScale, int carColliderLayerBeforeJump)
     {
         if (!isJumping)

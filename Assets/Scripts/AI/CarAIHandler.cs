@@ -5,13 +5,13 @@ using System.Linq;
 
 public class CarAIHandler : MonoBehaviour
 {
-    public enum AIMode { followPlayer, followWaypoints, followMouse };
+    public enum AIMode { followPlayer, followNearestEnemy, followWaypoints, followMouse };
 
     [Header("AI settings")]
     public AIMode aiMode;
-    public float maxSpeed = 16;
+    public float maxSpeed = 18;
     public bool isAvoidingCars = true;
-    [Range(0.0f, 1.0f)]
+    //[Range(0.0f, 1.0f)]
     public float skillLevel = 1.0f;
 
     //Local variables
@@ -52,12 +52,14 @@ public class CarAIHandler : MonoBehaviour
         polygonCollider2D = GetComponentInChildren<PolygonCollider2D>();
 
         orignalMaximumSpeed = maxSpeed;
+
+        skillLevel = PlayerPrefs.GetFloat("SkillLevel", 0.8f);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        SetMaxSpeedBasedOnSkillLevel(maxSpeed);
+        UpdateMaxSpeedBasedOnSkillLevel(skillLevel);
     }
 
     // Update is called once per frame and is frame dependent
@@ -73,6 +75,17 @@ public class CarAIHandler : MonoBehaviour
             case AIMode.followPlayer:
                 FollowPlayer();
                 break;
+            
+            case AIMode.followNearestEnemy:
+                FollowNearestEnemy();
+                break;
+
+            /*case AIMode.bombFun:
+                if(HasBomb())
+                    FollowNearestEnemy()
+                else
+                    EscapeFromBomb();
+                break;*/
 
             case AIMode.followWaypoints:
                 if (temporaryWaypoints.Count == 0)
@@ -112,10 +125,45 @@ public class CarAIHandler : MonoBehaviour
             targetPosition = targetTransform.position;
     }
 
+    void FollowNearestEnemy()
+    {
+        if (targetTransform == null)
+        {
+            GameObject nearestAIObject = null;
+            float nearestDistance = Mathf.Infinity;
+
+            // Find all AI objects with the "AI" tag
+            GameObject[] aiObjects = GameObject.FindGameObjectsWithTag("AI");
+
+            foreach (GameObject aiObject in aiObjects)
+            {
+                // Exclude the current AI object from consideration
+                if (aiObject != gameObject)
+                {
+                    float distance = Vector3.Distance(transform.position, aiObject.transform.position);
+                    if (distance < nearestDistance)
+                    {
+                        nearestDistance = distance;
+                        nearestAIObject = aiObject;
+                    }
+                }
+            }
+
+            // If a nearby AI object is found, set it as the target
+            if (nearestAIObject != null)
+                targetTransform = nearestAIObject.transform;
+            else
+                targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+
+        if (targetTransform != null)
+            targetPosition = targetTransform.position;
+    }
+
     //AI follows waypoints
     void FollowWaypoints()
     {
-        //Pick the cloesest waypoint if we don't have a waypoint set.
+        //Pick the closest waypoint if we don't have a waypoint set.
         if (currentWaypoint == null)
         {
             currentWaypoint = FindClosestWayPoint();
@@ -143,9 +191,9 @@ public class CarAIHandler : MonoBehaviour
             //Check if we are close enough to consider that we have reached the waypoint
             if (distanceToWayPoint <= currentWaypoint.minDistanceToReachWaypoint)
             {
-                if (currentWaypoint.maxSpeed > 0)
+                /*if (currentWaypoint.maxSpeed > 0)
                     SetMaxSpeedBasedOnSkillLevel(currentWaypoint.maxSpeed);
-                else SetMaxSpeedBasedOnSkillLevel(1000);
+                else SetMaxSpeedBasedOnSkillLevel(1000);*/
 
                 //Store the current waypoint as previous before we assign a new current one.
                 previousWaypoint = currentWaypoint;
@@ -166,7 +214,7 @@ public class CarAIHandler : MonoBehaviour
         float distanceToWayPoint = (targetPosition - transform.position).magnitude;
 
         //Drive a bit slower than usual
-        SetMaxSpeedBasedOnSkillLevel(5);
+        //SetMaxSpeedBasedOnSkillLevel(5);
 
         //Check if we are close enough to consider that we have reached the waypoint
         float minDistanceToReachWaypoint = 1.5f;
@@ -250,12 +298,17 @@ public class CarAIHandler : MonoBehaviour
         return throttle;
     }
 
-    void SetMaxSpeedBasedOnSkillLevel(float newSpeed)
+    /*void SetMaxSpeedBasedOnSkillLevel(float newSpeed)
     {
         maxSpeed = Mathf.Clamp(newSpeed, 0, orignalMaximumSpeed);
 
         float skillbasedMaxiumSpeed = Mathf.Clamp(skillLevel, 0.3f, 1.0f);
         maxSpeed = maxSpeed * skillbasedMaxiumSpeed;
+    }*/
+
+    void UpdateMaxSpeedBasedOnSkillLevel(float newSkillLevel)
+    {
+        maxSpeed = orignalMaximumSpeed * newSkillLevel;
     }
 
 

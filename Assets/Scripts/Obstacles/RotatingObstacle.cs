@@ -1,69 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotatingObstacle : MonoBehaviour
 {
-    [SerializeField] float RotAngleZ;
-    [SerializeField] float delay;
-    
-    /* Update is called once per frame
-    void Update()
-    {
-        float rZ = Mathf.SmoothStep(0,RotAngleZ,Mathf.PingPong(Time.time,delay));
-		transform.rotation = Quaternion.Euler(0f, 0f, RotAngleZ * Mathf.Sin(Time.time * delay));
-    }*/
+    [SerializeField] private float rotAngleZ;
+    [SerializeField] private float delay;
 
-    void Start(){
-        StartCoroutine(Coroutine());
+    private Quaternion startRotation;
+    private Quaternion endRotation;
+
+    private void Start()
+    {
+        StartCoroutine(RotateObstacle());
     }
 
-    IEnumerator Coroutine()
+    private IEnumerator RotateObstacle()
     {
-        WaitForSeconds waitTime = new WaitForSeconds(3);
         while (true)
         {
-            yield return StartCoroutine(RotateMe1());
-            yield return waitTime;
-            yield return StartCoroutine(RotateMe2());
-            yield return waitTime;
+            yield return StartCoroutine(RotateToAngle(rotAngleZ));
+            yield return new WaitForSeconds(delay);
+            yield return StartCoroutine(RotateToAngle(-rotAngleZ));
+            yield return new WaitForSeconds(delay);
         }
     }
 
-    IEnumerator RotateMe1()
+    private IEnumerator RotateToAngle(float angle)
     {
-    float startRotation = transform.eulerAngles.z;
-    float endRotation = startRotation + RotAngleZ;
-    float t = 0.0f;
+        startRotation = transform.rotation;
+        endRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, 
+            transform.eulerAngles.z + angle);
 
-        while ( t  < delay )
+        float t = 0f;
+        while (t < 1f)
         {
-            t += Time.deltaTime;
-
-            float zRotation = Mathf.Lerp(startRotation, endRotation, t / delay) % 360.0f;
-
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 
-            zRotation);
-
-            yield return null;
-        }
-    }
-
-    IEnumerator RotateMe2()
-    {
-    float startRotation = transform.eulerAngles.z;
-    float endRotation = startRotation - RotAngleZ;
-    float t = 0.0f;
-
-        while ( t  < delay )
-        {
-            t += Time.deltaTime;
-
-            float zRotation = Mathf.Lerp(startRotation, endRotation, t / delay) % 360.0f;
-
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 
-            zRotation);
-
+            t += Time.deltaTime / delay;
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
             yield return null;
         }
     }

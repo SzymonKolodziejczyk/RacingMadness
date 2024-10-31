@@ -8,7 +8,7 @@ public class MainMenuController : MonoBehaviour
    public void StartButton()
    {
       Debug.Log("Choose your car!");
-      SceneManager.LoadScene("SelectYourCar");
+      SceneManager.LoadScene("SelectGameMode");
    }
 
    public void QuitGame()

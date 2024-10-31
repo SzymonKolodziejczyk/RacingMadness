@@ -9,17 +9,26 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: f3d9e9613fa18d94c857d413678a478b
   - enabled: 1
-    path: Assets/Scenes/SelectRaceCourse.unity
+    path: Assets/Scenes/SelectGameMode.unity
+    guid: 6fc7c06fa4fd4554fb36715f19c9a496
+  - enabled: 1
+    path: Assets/Scenes/FreeRace/SelectRaceCourseFreerace.unity
     guid: 9e4caae4e6e3ea749bcc9a5d3d668436
   - enabled: 1
-    path: Assets/Scenes/SelectYourCar.unity
+    path: Assets/Scenes/FreeRace/SelectYourCarFreerace.unity
     guid: bec62098aeea28746b7996b2453658e2
   - enabled: 1
-    path: Assets/Scenes/Courses/Level 1.unity
+    path: Assets/Scenes/FreeRace/Courses/Level 1.unity
     guid: b0205ab0c21af6942929bdaadfb21b18
-  - enabled: 0
-    path: Assets/Scenes/Example cases/TouchInput.unity
-    guid: 0240d26010020824abfabe7a4ee9155c
+  - enabled: 1
+    path: Assets/Scenes/Deathmatch/SelectYourCarDeathmatch.unity
+    guid: 73427859444394b47baf96fe85b52e6b
+  - enabled: 1
+    path: Assets/Scenes/Deathmatch/SelectRaceCourseDeathmatch.unity
+    guid: d4588429ccbefa54e809d433554ef5f9
+  - enabled: 1
+    path: Assets/Scenes/Deathmatch/Courses/Level 1.unity
+    guid: b03d85ba74eae0c49bffa064b48cd986
   - enabled: 1
     path: Assets/Scenes/Example cases/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729

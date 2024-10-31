@@ -4,71 +4,71 @@ using UnityEngine;
 
 public class RespawnSystem : MonoBehaviour
 {
-    public Vector2 safeGroundLocation {get; private set;} = Vector2.zero;
+    public Vector2 safeGroundLocation { get; private set; } = Vector2.zero;
     [SerializeField] private LayerMask whatIsCheckPoint;
-    
+
     public ParticleSystem particleSystemsKO;
 
     public GameObject RespawnAura;
     public GameObject CarSprites;
     public GameObject Explosion;
+    public GameObject DamageAnim;
+    private CarSFXHandler carSfxHandler;
+    private HealthSystem healthSystem;
 
-    CarSFXHandler carSfxHandler;
-    HealthSystem HealthSystem;
-
-    void Awake()
+    private void Awake()
     {
         carSfxHandler = GetComponent<CarSFXHandler>();
-        HealthSystem = GetComponent<HealthSystem>();
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     private void Start()
     {
         safeGroundLocation = transform.position;
-        //shield = transform.Find("Shield").gameObject;
-        //DeactivateShield();
     }
 
-    void Update()
+    private void Update()
     {
-        if (gameObject.GetComponent<HealthSystem>().health <= 0)
+        if (healthSystem.health <= 0)
         {
+            //Destroy(gameObject);
             StartCoroutine(Respawn());
         }
     }
 
-    //Update checkpoint position
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if ((whatIsCheckPoint.value & (1 << collision.gameObject.layer)) > 0)
         {
-            safeGroundLocation = new Vector2(collision.bounds.center.x, collision.bounds.center.y);
+            safeGroundLocation = collision.bounds.center;
+            //PlayHitEffect();
         }
     }
 
-    IEnumerator Respawn()
+    public void PlayHitEffect()
     {
-        //Debug.Log("Lol");
-        //health = maxHealth;
-        WaitForSeconds waitTime = new WaitForSeconds(1.0f);
-        yield return StartCoroutine(DestroyAnimation());
-        yield return waitTime;
-        yield return StartCoroutine(BetweenDestroyAndRespawn());
-        yield return waitTime;
-        yield return StartCoroutine(RespawnAnimation());
-        //Destroy(gameObject);
+        DamageAnim.SetActive(true); // Play the particle system when the player is hit
     }
 
-    public IEnumerator DestroyAnimation()
+    private IEnumerator Respawn()
     {
-        carSfxHandler.PlayExplosionSfx();
+        yield return StartCoroutine(DestroyAnimation());
+        Invoke("PlayExplosionSfx", 0.1f); // Schedule the sound effect to play after a small delay
+        yield return new WaitForSeconds(0.5f); // Adjust the delay as needed
+        yield return StartCoroutine(BetweenDestroyAndRespawn());
+        yield return new WaitForSeconds(1.0f);
+        yield return StartCoroutine(RespawnAnimation());
+    }
+
+    private IEnumerator DestroyAnimation()
+    {
         Explosion.SetActive(true);
         CarSprites.SetActive(false);
-        //particleSystemsKO.Play();
+        particleSystemsKO.Play();
         yield return null;
     }
 
-    public IEnumerator BetweenDestroyAndRespawn()
+    private IEnumerator BetweenDestroyAndRespawn()
     {
         transform.position = safeGroundLocation;
         Explosion.SetActive(false);
@@ -76,11 +76,16 @@ public class RespawnSystem : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator RespawnAnimation()
+    private IEnumerator RespawnAnimation()
     {
-        HealthSystem.RecoverHealth();
+        healthSystem.RecoverHealth();
         RespawnAura.SetActive(false);
         CarSprites.SetActive(true);
         yield return null;
+    }
+
+    private void PlayExplosionSfx()
+    {
+        carSfxHandler.PlayExplosionSfx(); // Play explosion sound effect
     }
 }

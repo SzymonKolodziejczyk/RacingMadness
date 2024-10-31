@@ -14,6 +14,8 @@ TagManager:
   - CheckPoint
   - SpawnPoint
   - AI
+  - GameMusic
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -29,7 +31,7 @@ TagManager:
   - Checkpoint
   - Surface
   - 
-  - 
+  - Wall
   - 
   - 
   - 
@@ -71,4 +73,7 @@ TagManager:
     locked: 0
   - name: Particles
     uniqueID: 1762550891
+    locked: 0
+  - name: Wall
+    uniqueID: 1726341793
     locked: 0
